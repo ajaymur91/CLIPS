@@ -1,0 +1,59 @@
+;
+;   File redo/gromacs.top  was generated
+;   By user: ajay (1000)
+;   On host: ajay-MS-7C37
+;   At date: Wed. October  3 22:05:22 2020
+;
+;   This is a standalone topology file
+;
+;   Created by:
+;   ParmEd:       , VERSION 3.2.0
+;   Executable:   
+;   Library dir:  /usr/local/gromacs/share/gromacs/top
+;   Command line:
+;     
+;
+
+[ defaults ]
+; nbfunc        comb-rule       gen-pairs       fudgeLJ fudgeQQ
+1               3               yes             0.5          0.5         
+
+[ atomtypes ]
+; name    bond_type at.num    mass    charge ptype  sigma      epsilon
+;BLB
+BB      BB              5  10.810000  0.00000000  A         0.3581         0.3974
+OH      OH              8  15.999400  0.00000000  A        0.29603         0.8793
+CO      CO              6  12.011000  0.00000000  A        0.34001         0.3601
+CT      CT              6  12.011000  0.00000000  A        0.34001          0.458
+OC      OC              8  15.999400  0.00000000  A        0.29603         0.8793
+HC      HC              1   1.008000  0.00000000  A        0.26498         0.0657
+;EC
+opls_774 CT              6  12.011000  0.00000000  A          0.35       0.276144
+opls_777 HC              1   1.008000  0.00000000  A         0.242        0.06276
+opls_773 OS              8  15.999400  0.00000000  A           0.3        0.71128
+opls_772 C               6  12.011000  0.00000000  A         0.375        0.43932
+opls_771 O               8  15.999400  0.00000000  A         0.296        0.87864
+;LI Maigret                            
+opls_404 Li+             3   6.941000  1.00000000  A         0.146       0.799144
+;TFSI
+opls_967 F1              6  12.011000   0.24000000  A          0.295        0.22175
+opls_966 C5              6  12.011000   0.36000000  A           0.35        0.27614
+opls_968 S1              6  12.011000   0.12000000  A          0.355          1.046
+opls_969 O1              6  12.011000   0.48000000  A          0.296        0.87864
+opls_970 N1              9  18.998400  -0.12000000  A          0.325        0.71128
+
+#include "BLB.itp"
+#include "TFSI.itp"
+#include "EC_95.itp"
+#include "LI.itp"
+
+[ system ]
+; Name
+Generic title
+
+[ molecules ]
+; Compound       #mols
+;LI                  1
+TFSI                1
+;BLB                 1
+EC                  4

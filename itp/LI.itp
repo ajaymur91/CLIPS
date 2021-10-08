@@ -1,0 +1,8 @@
+[ moleculetype ]
+; Name            nrexcl
+LI          3
+
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr    charge       mass  typeB    chargeB      massB
+; residue    1 LI rtp LI q 1.0
+    1   opls_404      1     LI     LI      1 1.00000000   6.941000   ; qtot 1.000000
