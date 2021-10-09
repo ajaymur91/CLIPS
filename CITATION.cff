@@ -4,5 +4,5 @@ authors:
   - family-names: Muralidharan
     given-names: Ajay
     orcid: https://orcid.org/0000-0003-0052-8780
-title: "ClusterSAM"
+title: "ClusterSAM tool for fast estimation of ion-pairing"
 version: 1.0
