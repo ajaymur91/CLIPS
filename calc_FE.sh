@@ -73,7 +73,7 @@ local.min.max <- function(x, dev=mean, plot=TRUE, add.points=FALSE,  ...) {
 }
 ####################
 
-png('FE.png')
+pdf('FE.pdf')
 H <- read.table('histo')
 FE <- -log(H$V2)+2*log(H$V1)
 H2 <- read.table('HISTO')
