@@ -6,7 +6,7 @@ conda env create -f env.yaml
   ```
   ```
 # Usage
-conda activate ClusterSAM
+conda activate CLIPS
 bash run_n.sh
   ```
   - Select some input parameters in run_n.sh
