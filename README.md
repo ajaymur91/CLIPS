@@ -2,10 +2,15 @@
 
   ```
 # Requirements:
-conda env create -f env.yaml
+- git 
+- anaconda
+- tested on linux amd x86-64
   ```
   ```
 # Usage
+git clone ssh://git@github.com/ajaymur91/CLIPS.git
+cd CLIPS
+conda env create -f env.yaml
 conda activate CLIPS
 bash run_n.sh
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4
