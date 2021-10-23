@@ -10,8 +10,8 @@ conda activate CLIPS
 bash run_n.sh
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4
   ```
-  - Select some input parameters in run_n.sh or
-  -  optional command line args:
+  - Select some input parameters in run_n.sh
+  - or use optional command line args:
   -     c) cation (LI or NA)
         a) anion (TF or TFSI or BLB)
         f) solvent (EC or SOL) (SOL stands for water)
