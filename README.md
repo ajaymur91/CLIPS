@@ -1,3 +1,4 @@
+   ![](CLIPS.gif)
 # Calculate dissociation barrier using OPES
 
   ```
@@ -28,7 +29,5 @@ bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4
 
   - Currently supports LI, TFSI, OTF, NA, CL, EC and water only.
   - (Figshare animation) https://doi.org/10.6084/m9.figshare.16755277.v3 (CLIPS.gif)
-
-   ![](CLIPS.gif)
 
   ```
