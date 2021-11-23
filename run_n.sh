@@ -4,6 +4,8 @@
 
 #!/bin/bash
 # Stop if you encounter error
+eval "$(conda shell.bash hook)"
+conda activate CLIPS
 set -e
 export GMX_MAXBACKUP=-1     # Overwrites
 export PLUMED_MAXBACKUP=-1  # Unlimited backups
