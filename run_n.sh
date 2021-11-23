@@ -36,8 +36,8 @@ R_SOL=2
 
 #Trajectory sampling time (ps) - do not change
 nsteps=50000
-nstepsmd=500000     #dt is set to 0.5 fs in mdp file
-nstepsmtd=5000000 #0
+nstepsmd=50000     #dt is set to 0.5 fs in mdp file
+nstepsmtd=100000 #0
 
 while getopts c:a:f:n:T:P:N:S: flag
 do
@@ -311,4 +311,7 @@ echo -e "\n Run WT-MTD - $Ion1 - $Ion2 and $NSOLV $Solv \n"
 
 ###############################
 rm -rf barrier
-bash calc_FE.sh $Ion1 $Ion2; xdg-open FE.pdf
+bash calc_FE.sh $Ion1 $Ion2; 
+
+conda activate MUPDF
+mupdf FE.pdf

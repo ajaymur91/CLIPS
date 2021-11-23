@@ -12,6 +12,8 @@
 git clone ssh://git@github.com/ajaymur91/CLIPS.git
 cd CLIPS
 conda env create -f env.yaml
+conda env create -f renv2.yaml
+conda env create -f mupdf.yaml
 conda activate CLIPS
 bash run_n.sh
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4
