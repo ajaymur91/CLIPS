@@ -1,4 +1,6 @@
 #!/bin/bash
+eval "$(conda shell.bash hook)"
+conda activate CLIPS
 set -e
 REF='/home/ajay/Documents/opes4/reference'
 Ion1=$1
@@ -44,7 +46,7 @@ EOF
 #sed '2,2d' Colvar.data > BIAS2
 L=$(wc -l Colvar.data)
 echo $L
-sed "2,50000d" Colvar.data | sed -n "1~10 p" > BIAS2
+sed "2,10000d" Colvar.data | sed -n "1~10 p" > BIAS2
 #cat Colvar.data  > BIAS2
 cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt 2.603
 
@@ -76,20 +78,20 @@ local.min.max <- function(x, dev=mean, plot=TRUE, add.points=FALSE,  ...) {
 pdf('FE.pdf')
 H <- read.table('histo')
 FE <- -log(H$V2)+2*log(H$V1)
-H2 <- read.table('HISTO')
-FE2 <- -log(H2$V2)+2*log(H2$V1)
+#H2 <- read.table('HISTO')
+#FE2 <- -log(H2$V2)+2*log(H2$V1)
 
 # Trim 
 x <- H$V1[is.finite(FE)]
 F <- FE[is.finite(FE)]
-x2 <- H2$V1[is.finite(FE2)]
-F2 <- FE2[is.finite(FE2)]
+#x2 <- H2$V1[is.finite(FE2)]
+#F2 <- FE2[is.finite(FE2)]
 
 # Calc barrier
 LMM <- local.min.max(F,plot = FALSE)
 Min <- which(F==LMM$minima[1])
 Max <- which(F==LMM$maxima[2])
-LMM2 <- local.min.max(F2,plot = FALSE)
+#LMM2 <- local.min.max(F2,plot = FALSE)
 if(x[Max] < 0.65){ 
 Bar <- LMM$maxima[2] - LMM$minima[1]
 } else {
@@ -111,7 +113,7 @@ if(length(LMM$minima) > 1){
 # Plot
 par(mar=c(5,5,2,2))
 plot(x,F-LMM$minima[1],ylim=c(-10,20),xlim=c(0.15,0.75),type='l',col="red",ylab="FE (kT)",xlab="r (nm)",cex.lab=1.5,lwd=2,cex.axis=1.2,main="PMF (Li-TF)")
-lines(x2,F2 - LMM2$minima[1],lty=2,lwd=2)
+#lines(x2,F2 - LMM2$minima[1],lty=2,lwd=2)
 text(0.65,1.5*Bar,"Upper \n Wall",pos=2,cex=2,col="blue")
 abline(v=0.65,lwd=3,col="blue")
 abline(h=0,lty=3)
@@ -128,5 +130,7 @@ write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'bindE')
 dev.off()
 EOF
 sed -i "s|HISTO|$HISTO|g" plot.R
+eval "$(conda shell.bash hook)"
+conda activate RENV2
 Rscript --vanilla plot.R
 
