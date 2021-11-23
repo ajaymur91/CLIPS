@@ -8,12 +8,15 @@
 - tested on linux amd x86-64
   ```
   ```
+# Installing gromacs + plumed + R
+
+conda env create -f env.yaml
+conda env create -f renv2.yaml # For Plotting results 
+conda env create -f mupdf.yaml # For Viewing results 
+
 # Usage
 git clone ssh://git@github.com/ajaymur91/CLIPS.git
-cd CLIPS
-conda env create -f env.yaml
-conda env create -f renv2.yaml
-conda env create -f mupdf.yaml
+cd CLIPS 
 bash run_n.sh (uses defaults, results stored in FE.pdf)
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4 (setting non defaults)
   ```
