@@ -1,0 +1,11 @@
+name: RENV2
+channels:
+- conda-forge
+dependencies:
+- r-base
+- r-shape
+  #- plumed=2.7.1
+  #- gromacs=2019.6
+  #- alchemical-analysis=1.0.2
+  #- networkx=2.2
+  #- pydot=1.2.4
