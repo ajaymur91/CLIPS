@@ -313,5 +313,6 @@ echo -e "\n Run WT-MTD - $Ion1 - $Ion2 and $NSOLV $Solv \n"
 rm -rf barrier
 bash calc_FE.sh $Ion1 $Ion2; 
 
-conda activate MUPDF
-mupdf-gl FE.pdf
+# optional (view results)
+#conda activate MUPDF
+#mupdf-gl FE.pdf
