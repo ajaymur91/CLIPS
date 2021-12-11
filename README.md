@@ -2,20 +2,20 @@
 # Calculate dissociation barrier using OPES
 
   ```
-# Requirements:
+# External Requirements:
 - git 
 - anaconda
-- tested on linux amd x86-64
+- tested on linux-64 and osx-64
   ```
   ```
-# Installing gromacs + plumed + R
-
-conda env create -f env.yaml
+# Getting CLIPS code
+git clone ssh://git@github.com/ajaymur91/CLIPS.git
+conda env create -f env.yaml # For linux-64
+conda env create -f mac-env.yaml # For osx-64
 conda env create -f renv2.yaml # For Plotting results 
-conda env create -f mupdf.yaml # For Viewing results 
+# conda env create -f mupdf.yaml # For Viewing results (optional)
 
 # Usage
-git clone ssh://git@github.com/ajaymur91/CLIPS.git
 cd CLIPS 
 bash run_n.sh (uses defaults, results stored in FE.pdf)
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4 (setting non defaults)
