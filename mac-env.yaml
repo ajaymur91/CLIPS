@@ -1,0 +1,10 @@
+name: CLIPS
+channels:
+- ajaymur91
+- conda-forge
+dependencies:
+- plumed=2.8b
+- gromacs=2019.6
+  #- alchemical-analysis=1.0.2
+  #- networkx=2.2
+  #- pydot=1.2.4
