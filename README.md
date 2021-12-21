@@ -16,10 +16,12 @@ conda env create -f mac-env.yaml # For osx-64
 # Usage
 cd CLIPS 
 bash run_n.sh (uses defaults, results stored in FE.pdf)
-bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4 (setting non defaults)
   - Select some input parameters in run_n.sh
   - or use optional command line args:
-  -     c) cation (LI or NA)
+
+bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4 (setting non defaults)
+
+        c) cation (LI or NA)
         a) anion (TF or TFSI or BLB)
         f) solvent (EC or SOL) (SOL stands for water)
         n) OpenMP processes (1 or 2 or 3 ...) 
