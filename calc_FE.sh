@@ -5,9 +5,11 @@ conda activate CLIPS
 REF='./reference'
 Ion1=$1
 Ion2=$2
-i=$3
+Solv=$3
+nstepsmtd=$4
+i=$5
+Time=$(printf %.1f $(echo "0.000001*$nstepsmtd*$i/10" | bc -l))
 HISTO="$REF/$Ion1$Ion2/histo_wall2"
-echo $HISTO
 rm -rf bck.*
 #cat << EOF > bw.R
 ##!/bin/Rscript
@@ -47,7 +49,7 @@ EOF
 L=$(sed "2,500d" Colvar.data | wc -l)
 echo $L
 NL=$(echo "$i*$L/10" | bc)
-sed "2,500d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
+sed "2,500d" Colvar.data | head -n $NL | sed -n "1~10 p" > BIAS2
 echo $(wc -l BIAS2)
 cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt 2.603
 
@@ -122,14 +124,18 @@ if(length(LMM$minima) > 1){
 }
 
 # Plot
+library(latex2exp)
 par(mar=c(5,5,2,2))
-plot(x,F-LMM$minima[1],ylim=c(-10,20),xlim=c(0.15,0.75),type='l',col="red",ylab="FE (kT)",xlab="r (nm)",cex.lab=1.5,lwd=2,cex.axis=1.2,main="PMF (Ion1-Ion2)")
+plot(x,F-LMM$minima[1],ylim=c(-10,20),xlim=c(0.15,0.75),type='l',col="red",ylab=TeX('$\\Delta G$ $(kT)$'),xlab="r (nm)",cex.main=2,cex.lab=2,lwd=2,cex.axis=1.5,main=TeX('PMF (Ion1$^+$ - Ion2$^-$ / Solv)'))
+
+#plot(x,F-LMM$minima[1],ylim=c(-10,20),xlim=c(0.15,0.75),type='l',col="red",ylab="FE (kT)",xlab="r (nm)",cex.lab=1.5,lwd=2,cex.axis=1.2,main="PMF (Ion1 - Ion2 in Solv)")
 
 if (file.exists('HISTO')){ 
 lines(x2,F2 - LMM2$minima[1],lty=2,lwd=2)
 }
 
 text(0.65,15,"Upper\nWall",pos=2,cex=2,col="blue")
+text(0.65,-2.5,"Time (ns)",pos=4,cex=1.5,col="red")
 abline(v=0.65,lwd=3,col="blue")
 abline(h=0,lty=3)
 legend("bottomright",c('Bulk','Cluster'),col=c('black','red'),bg="antiquewhite",lty=c(2,1),cex=1.8,lwd=c(3,3))
@@ -144,8 +150,10 @@ write.table(x = Bar,row.names = FALSE,col.names = FALSE,file = 'barrier')
 write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'bindE')
 dev.off()
 EOF
-sed -i.bak "s|HISTO|$HISTO|g" plot.R
-sed -i.bak "s|Ion1|$Ion1|g" plot.R
-sed -i.bak "s|Ion2|$Ion2|g" plot.R
+sed -i "s|HISTO|$HISTO|g" plot.R
+sed -i "s|Ion1|$Ion1|g" plot.R
+sed -i "s|Ion2|$Ion2|g" plot.R
+sed -i "s|Solv|$Solv|g" plot.R
+sed -i "s|Time |$Time |g" plot.R
 Rscript --vanilla plot.R
-rm -rf *.bak
+

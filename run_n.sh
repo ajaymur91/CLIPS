@@ -339,7 +339,7 @@ retry gmx mdrun -deffnm mtd -nsteps $nstepsmtd -plumed plumed_MTD.dat -ntomp $NT
 
 ###############################
 rm -rf barrier \#*
-bash calc_all.sh $Ion1 $Ion2; 
+bash calc_all.sh $Ion1 $Ion2 $Solv $nstepsmtd
 
 # optional (view results)
 #conda activate MUPDF
