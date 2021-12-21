@@ -4,11 +4,17 @@
   ```
 # External Requirements:
 - git 
+(Linux: https://git-scm.com/download/linux)
+(MacOS: https://git-scm.com/download/mac)
+
 - anaconda
-- tested on linux-64 and osx-64
+(Linux: https://docs.anaconda.com/anaconda/install/linux/)
+(MacOS: https://docs.anaconda.com/anaconda/install/mac-os/)
+
   ```
   ```
 # Getting CLIPS code
+- tested on linux-64 (Ubuntu 20.04.3, CentOS-7) and osx-64 (tested on macOS Catalina)
 git clone ssh://git@github.com/ajaymur91/CLIPS.git
 conda env create -f env.yaml # For linux-64
 conda env create -f mac-env.yaml # For osx-64
@@ -36,6 +42,5 @@ bash run_n.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 1.8 -V 30 (sett
         V) N_SOLV (currently empirical: 30 for EC and 80 for water. Anything greater than 20% of bulk density works.)
 
   - Currently supports LI, TFSI, OTF, NA, CL, EC and water only.
-  - (Figshare animation) https://doi.org/10.6084/m9.figshare.16755277.v3 (CLIPS.gif)
-
+  - (Figshare animation) [https://doi.org/10.6084/m9.figshare.16755277.v3](https://doi.org/10.6084/m9.figshare.16755277.v3) (CLIPS.gif)
   ```
