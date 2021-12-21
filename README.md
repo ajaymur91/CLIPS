@@ -22,7 +22,7 @@ bash run_n.sh (uses defaults, results stored in FE.pdf)
   - Select some input parameters in run_n.sh
   - or use optional command line args:
 
-bash run_n.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 1.8 V 30 (setting non defaults)
+bash run_n.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 1.8 -V 30 (setting non defaults)
 
         c) cation (LI or NA)
         a) anion (TF or TFSI or BLB)
