@@ -8,6 +8,7 @@ dependencies:
 - r-base
 - r-shape
 - imagemagick 
+- r-latex2exp
   #- alchemical-analysis=1.0.2
   #- networkx=2.2
   #- pydot=1.2.4
