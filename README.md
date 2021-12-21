@@ -1,4 +1,3 @@
-# Calculate ion dissociation barrier and free energies
 ![](CLIPS.gif)
 
 # External Requirements:
