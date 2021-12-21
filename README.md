@@ -12,14 +12,11 @@
 git clone ssh://git@github.com/ajaymur91/CLIPS.git
 conda env create -f env.yaml # For linux-64
 conda env create -f mac-env.yaml # For osx-64
-conda env create -f renv2.yaml # For Plotting results 
-# conda env create -f mupdf.yaml # For Viewing results (optional)
-
+```
 # Usage
 cd CLIPS 
 bash run_n.sh (uses defaults, results stored in FE.pdf)
 bash run_n.sh -c LI -a TFSI -f EC -n 2 -T 313 -P LI -N S1 -S C4 (setting non defaults)
-  ```
   - Select some input parameters in run_n.sh
   - or use optional command line args:
   -     c) cation (LI or NA)
