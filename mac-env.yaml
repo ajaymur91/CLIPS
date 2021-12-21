@@ -5,6 +5,9 @@ channels:
 dependencies:
 - plumed=2.8b
 - gromacs=2019.6
+- r-base
+- r-shape
+- imagemagick 
   #- alchemical-analysis=1.0.2
   #- networkx=2.2
   #- pydot=1.2.4

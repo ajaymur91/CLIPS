@@ -3,9 +3,33 @@
 # See ./readme_conda 
 
 #!/bin/bash
-# Stop if you encounter error
+
+function fail {
+  echo $1 >&2
+  exit 1
+}
+
+function retry {
+  local n=1
+  local max=10
+  local delay=1
+  while true; do
+    "$@" && break || {
+      if [[ $n -lt $max ]]; then
+        ((n++))
+        echo "Command failed. Attempt $n/$max:"
+        sleep $delay;
+      else
+        fail "The command has failed after $n attempts."
+      fi
+    }
+  done
+}
+
 eval "$(conda shell.bash hook)"
 conda activate CLIPS
+
+# Stop if you encounter error
 set -e
 export GMX_MAXBACKUP=-1     # Overwrites
 export PLUMED_MAXBACKUP=-1  # Unlimited backups
@@ -19,7 +43,7 @@ TEMPERATURE=313
 Ion1=LI
 Ion2=TF
 Solv=EC
-NTOMP=2
+NTOMP=1
 Ion_q1=1
 Ion_q2=-1
 Solv_q=0
@@ -32,14 +56,14 @@ Tot_q=$(($Ion_q1+$Ion_q2))
 #Inner shell radius (nm)
 R1=0.28
 R2=0.28
-R_SOL=2
+R_SOL=1.8
 
 #Trajectory sampling time (ps) - do not change
    nsteps=50000
- nstepsmd=500000     #dt is set to 0.5 fs in mdp file
+ nstepsmd=100000     #dt is set to 0.5 fs in mdp file
 nstepsmtd=5000000 #0
 
-while getopts c:a:f:n:T:P:N:S: flag
+while getopts c:a:f:n:T:P:N:S:R:V: flag
 do
     case "${flag}" in
         c) Ion1=${OPTARG};;
@@ -50,6 +74,8 @@ do
         P) CA1=${OPTARG};;
         N) CA2=${OPTARG};;
         S) SA21=${OPTARG};;
+        R) R_SOL=${OPTARG};;
+        V) NSOLV=${OPTARG};;
     esac
 done
 echo "Cation: $Ion1";
@@ -57,7 +83,8 @@ echo "Anion: $Ion2";
 echo "Solv: $Solv";
 echo "NTOMP: $NTOMP";
 echo "TEMPERATURE: $TEMPERATURE";
-
+echo "R_SOL: $R_SOL";
+echo "NSOLV: $NSOLV";
 ###############################
 
 cat << EOF > ion.top
@@ -208,7 +235,7 @@ gmx insert-molecules -f struct/"$Ion1".gro -ci struct/$Ion2.gro -o Ions.gro -box
 #$Ion2   1
 #EOF
 
-gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 2 2 2 -nmol $NSOLV -try 1000 -scale 0.1 #&> /dev/null
+gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.5 1.5 1.5 -nmol $NSOLV -try 10000 -scale 0.5 #&> /dev/null
 cat << EOF >> system.top
 $Solv   $NSOLV
 EOF
@@ -216,9 +243,9 @@ EOF
 ###############################
 
 # Make index and plumed.dat ( to enforce QCT criterion )
-gmx select -f IonW.gro -s IonW.gro -on CA1.ndx -select "atomname $CA1 and resnr 1" &> /dev/null
-gmx select -f IonW.gro -s IonW.gro -on CA2.ndx -select "atomname $CA2 and resnr 2" &> /dev/null
-gmx select -f IonW.gro -s IonW.gro -on mtd.ndx -select "atomname $SA21 and resnr > 2" &> /dev/null
+gmx select -f IonW.gro -s IonW.gro -on CA1.ndx -select "atomname $CA1 and resnr 1" 
+gmx select -f IonW.gro -s IonW.gro -on CA2.ndx -select "atomname $CA2 and resnr 2" 
+gmx select -f IonW.gro -s IonW.gro -on mtd.ndx -select "atomname $SA21 and resnr > 2" 
 
 Nt=$NSOLV 
 cat << EOF > plumed.dat
@@ -232,13 +259,14 @@ LW: LOWER_WALLS ARG=cn AT=${Nt} KAPPA=1000
 di: DISTANCE ATOMS=CA1,CA2
 UPPER_WALLS ...
  ARG=di
- AT=0.35
- KAPPA=2000.0
+ AT=0.65
+ KAPPA=20000.0
  EXP=2
  EPS=1
  OFFSET=0.
  LABEL=uwall
 ... UPPER_WALLS
+RESTRAINT ARG=di AT=0.6 KAPPA=5000.0 LABEL=restraint
 EOF
 echo "PRINT ARG=* FILE=COLVAR STRIDE=100" >> plumed.dat
 
@@ -247,16 +275,16 @@ echo "PRINT ARG=* FILE=COLVAR STRIDE=100" >> plumed.dat
 # Minimize
 gmx editconf -f IonW.gro -c -box 4 4 4 -o start1.gro #&> /dev/null
 echo -e "\n Run Minimization $Ion1-$Ion2 and $NSOLV $Solv \n"
-gmx grompp -f min.mdp -c start1.gro -p system.top -o min.tpr  #&> /dev/null
-gmx mdrun -v -deffnm min -nsteps 10000 -plumed plumed.dat  #&> /dev/null
+retry gmx grompp -f min.mdp -c start1.gro -p system.top -o min.tpr  #&> /dev/null
+retry gmx mdrun -deffnm min -nsteps 50000 -plumed plumed.dat  #&> /dev/null
 
 # Make box bigger (does not really matter - but do it anyway to be safe)
-gmx editconf -f min.gro -c -box 4.786 4.786 4.786 -o start.gro #&> /dev/null
+gmx editconf -f min.gro -c -box 4.97 4.97 4.97 -o start.gro #&> /dev/null
 
 #Md (100 ps)
 echo -e "\n Run MD - $Ion1-$Ion2 - $NSOLV $Solv \n"
- gmx grompp -f verlet.mdp -c start.gro -p system.top -o md.tpr #&> /dev/null
- gmx mdrun -v -deffnm md -nsteps $nstepsmd -plumed plumed.dat -ntomp $NTOMP #&> /dev/null
+retry gmx grompp -f verlet.mdp -c start.gro -p system.top -o md.tpr #&> /dev/null
+retry gmx mdrun -deffnm md -nsteps $nstepsmd -plumed plumed.dat -ntomp $NTOMP #&> /dev/null
 
 ###############################
 Nt=$NSOLV 
@@ -282,7 +310,7 @@ opes: OPES_METAD ...
   PACE=50
   BARRIER=100
   SIGMA=0.05
-  SIGMA_MIN=0.0001
+  SIGMA_MIN=0.0005
   #BIASFACTOR=25
   STATE_WFILE=State.data
   STATE_WSTRIDE=10000
@@ -292,7 +320,7 @@ opes: OPES_METAD ...
 UPPER_WALLS ...
  ARG=di
  AT=0.65
- KAPPA=200000.0
+ KAPPA=20000.0
  EXP=2
  EPS=1
  OFFSET=0.
@@ -306,12 +334,12 @@ EOF
 
 # WT-MTD (1000 ps)
 echo -e "\n Run WT-MTD - $Ion1 - $Ion2 and $NSOLV $Solv \n"
- gmx grompp -f verlet.mdp -c md.gro -p system.top -o mtd.tpr -t md.cpt #&> /dev/null
- gmx mdrun -v -deffnm mtd -nsteps $nstepsmtd -plumed plumed_MTD.dat -ntomp $NTOMP #&> /dev/null
+retry gmx grompp -f verlet.mdp -c md.gro -p system.top -o mtd.tpr #&> /dev/null
+retry gmx mdrun -deffnm mtd -nsteps $nstepsmtd -plumed plumed_MTD.dat -ntomp $NTOMP #&> /dev/null
 
 ###############################
-rm -rf barrier
-bash calc_FE.sh $Ion1 $Ion2; 
+rm -rf barrier \#*
+bash calc_all.sh $Ion1 $Ion2; 
 
 # optional (view results)
 #conda activate MUPDF

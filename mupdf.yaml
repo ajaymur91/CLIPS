@@ -1,5 +1,0 @@
-name: MUPDF
-channels:
-- conda-forge
-dependencies:
-- mupdf
