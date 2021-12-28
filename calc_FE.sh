@@ -119,12 +119,19 @@ L <- which(x>0.65)[1]
 Bar <- F[L] - LMM$minima[1]
 }
 
+
 # calc binding energy
 BE <- NA
 L <- which(x>0.65)[1]
-if(length(LMM$minima) > 1){ 
-  BE <- LMM$minima[2] - LMM$minima[1]
-  Min2 <- which(F==LMM$minima[2])
+if(length(LMM$minima) > 1){
+  Nm <- length(LMM$minima)	
+  for(i in Nm:2){
+  Min2 <- which(F==LMM$minima[i])
+  BE <- LMM$minima[i] - LMM$minima[1]
+  if(x[Min2]<0.65){
+  break;
+  }
+  }
 } else{ 
     BE <- F[L] - LMM$minima[1]
     Min2 <- L
