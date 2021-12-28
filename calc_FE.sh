@@ -2,27 +2,33 @@
 eval "$(conda shell.bash hook)"
 conda activate CLIPS
 #set -e
+
+# Read reference data if available
 REF='./reference'
 Ion1=$1
 Ion2=$2
 Solv=$3
 nstepsmtd=$4
 i=$5
-Time=$(printf %.1f $(echo "0.000001*$nstepsmtd*$i/10" | bc -l))
 HISTO="$REF/$Ion1$Ion2/histo_wall2"
 rm -rf bck.*
+
+# Default bandwidth
+bw=0.02
+echo $bw
+
+# Kernel bandwidth selector (optional)
 #cat << EOF > bw.R
 ##!/bin/Rscript
 #library(stats)
 #C <- read.table('BIAS2')
 #print(bw.nrd0(C\$V2))
 #EOF
-
 #sed '2,200d' Colvar.data > BIAS2
 #bw=$(Rscript --vanilla bw.R | awk '{print $2}')
-bw=0.02
-echo $bw
 
+# Reweight OPES 
+########################################
 cat << EOF > opes.dat
 # Read COLVAR file
 di:         READ FILE=BIAS2 IGNORE_TIME VALUES=di
@@ -31,7 +37,7 @@ uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
 w1:         READ FILE=BIAS2 IGNORE_TIME VALUES=LW.bias
 
 # Define weights
-weights: REWEIGHT_BIAS TEMP=313 ARG=opes.bias,uwall.bias,w1.bias #w2.bias,w3.bias,w4.bias #,w5.bias,w6.bias,w7.bias,w8.bias,w9.bias
+weights: REWEIGHT_BIAS TEMP=313 ARG=*.bias
 
 HISTOGRAM ...
   ARG=di
@@ -45,11 +51,12 @@ HISTOGRAM ...
 
 DUMPGRID GRID=hh  FILE=histo FMT=%24.16e
 EOF
+##########################################
 
 L=$(sed "2,500d" Colvar.data | wc -l)
-echo $L
 NL=$(echo "$i*$L/10" | bc)
-sed "2,500d" Colvar.data | head -n $NL | sed -n "1~10 p" > BIAS2
+sed "2,500d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
+Time=$(printf %.1f $(tail -n 1 BIAS2 | awk '{print $1/1000}'))
 echo $(wc -l BIAS2)
 cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt 2.603
 
@@ -150,10 +157,10 @@ write.table(x = Bar,row.names = FALSE,col.names = FALSE,file = 'barrier')
 write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'bindE')
 dev.off()
 EOF
-sed -i "s|HISTO|$HISTO|g" plot.R
-sed -i "s|Ion1|$Ion1|g" plot.R
-sed -i "s|Ion2|$Ion2|g" plot.R
-sed -i "s|Solv|$Solv|g" plot.R
-sed -i "s|Time |$Time |g" plot.R
+sed -i.bak "s|HISTO|$HISTO|g" plot.R
+sed -i.bak "s|Ion1|$Ion1|g" plot.R
+sed -i.bak "s|Ion2|$Ion2|g" plot.R
+sed -i.bak "s|Solv|$Solv|g" plot.R
+sed -i.bak "s|Time |$Time |g" plot.R
 Rscript --vanilla plot.R
 
