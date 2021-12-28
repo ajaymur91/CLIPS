@@ -231,15 +231,8 @@ EOF
 # Start from Ion.gro and insert waters and generate force-field
 cp ion.top system.top
 gmx insert-molecules -f struct/"$Ion1".gro -ci struct/$Ion2.gro -o Ions.gro -box 1.5 1.5 1.5 -nmol 1 -try 1000 -scale 3 #&> /dev/null
-#cat << EOF >> system.top
-#$Ion2   1
-#EOF
 
-#gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.5 1.5 1.5 -nmol $NSOLV -try 10000 -scale 0.5 #&> /dev/null
 NSOLV=$(gmx insert-molecules -f Ions.gro -ci struct/EC.gro -o IonW.gro -box 1.5 1.5 1.5 -nmol $NSOLV -try 1000 -scale 0.5 2> /dev/stdout  | grep "Output configuration contains" | awk '{ print $(NF-1)-2 }')
-cat << EOF >> system.top
-$Solv   $NSOLV
-EOF
 cat << EOF >> system.top
 $Solv   $NSOLV
 EOF
