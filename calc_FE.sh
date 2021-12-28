@@ -149,7 +149,7 @@ lines(x2,F2 - LMM2$minima[1],lty=2,lwd=2)
 }
 
 text(0.65,15,"Upper\nWall",pos=2,cex=2,col="blue")
-text(0.65,-2.5,"Time (ns)",pos=4,cex=1.5,col="red")
+text(0.65,18,"Time (ns)",pos=4,cex=1.5,col="red")
 abline(v=0.65,lwd=3,col="blue")
 abline(h=0,lty=3)
 legend("bottomright",c('Bulk','Cluster'),col=c('black','red'),bg="antiquewhite",lty=c(2,1),cex=1.8,lwd=c(3,3))
