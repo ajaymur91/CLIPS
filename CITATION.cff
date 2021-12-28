@@ -1,8 +1,4 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
-authors:
-  - family-names: Muralidharan
-    given-names: Ajay
-    orcid: https://orcid.org/0000-0003-0052-8780
-title: "CLIPS tool for fast estimation of ion-pairing"
-version: 1.0
+message: "If you use this software, please cite:
+Muralidharan, Ajay, and Arun Yethiraj. "Fast estimation of ion-pairing for screening electrolytes: A cluster can approximate a bulk liquid." arXiv preprint arXiv:2110.14036 (2021)
+"
