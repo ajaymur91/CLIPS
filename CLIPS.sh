@@ -4,7 +4,7 @@ Help()
 {
    # Display Help
    echo "														"
-   echo "	Syntax: bash run_n.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 2 -V 30			"
+   echo "	Syntax: bash CLIPS.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 2 -V 30			"
    echo "	Options:												"
    echo "     c) cation (LI or NA) (default = LI)									"		
    echo "     a) anion (TF or TFSI or BLB) (default = TF)								"
@@ -75,14 +75,14 @@ function retry {
     "$@" && break || {
       if [[ $n -lt $max ]]; then
         ((n++))
-        echo "Command failed. Attempt $n/$max:"
+	echo "CLIPS failed. Retry Attempt $((n+1))/$max:"
         sleep $delay;
       else
-        fail "The command has failed after $n attempts."
+        fail "The command has failed after $max attempts."
       fi
     }
   done
 }
 
 
-#time retry bash run_n.sh -c $Ion1 -a $Ion2 -f $Solv -n $NTOMP -P $CA1 -N $CA2 -S $SA1 -R $R_SOL -V $NSOLV
+time retry bash run_n.sh -c $Ion1 -a $Ion2 -f $Solv -n $NTOMP -T $TEMPERATURE -P $CA1 -N $CA2 -S $SA21 -R $R_SOL -V $NSOLV
