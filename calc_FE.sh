@@ -8,8 +8,7 @@ REF='./reference'
 Ion1=$1
 Ion2=$2
 Solv=$3
-nstepsmtd=$4
-i=$5
+i=$4
 HISTO="$REF/$Ion1$Ion2/histo_wall2"
 rm -rf bck.*
 
@@ -33,8 +32,8 @@ cat << EOF > opes.dat
 # Read COLVAR file
 di:         READ FILE=BIAS2 IGNORE_TIME VALUES=di
 opes:      READ FILE=BIAS2 IGNORE_TIME VALUES=opes.bias
-uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
-w1:         READ FILE=BIAS2 IGNORE_TIME VALUES=LW.bias
+#uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
+#w1:         READ FILE=BIAS2 IGNORE_TIME VALUES=LW.bias
 
 # Define weights
 weights: REWEIGHT_BIAS TEMP=313 ARG=*.bias
@@ -55,7 +54,7 @@ EOF
 
 L=$(sed "2,500d" Colvar.data | wc -l)
 NL=$(echo "$i*$L/10" | bc)
-sed "2,500d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
+sed "2,5000d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
 Time=$(printf %.1f $(tail -n 1 BIAS2 | awk '{print $1/1000}'))
 echo $(wc -l BIAS2)
 cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt 2.603
@@ -149,7 +148,7 @@ lines(x2,F2 - LMM2$minima[1],lty=2,lwd=2)
 }
 
 text(0.65,15,"Upper\nWall",pos=2,cex=2,col="blue")
-text(0.65,18,"Time (ns)",pos=4,cex=1.5,col="red")
+text(0.13,-9,"Time (ns)",pos=4,cex=2,col="red")
 abline(v=0.65,lwd=3,col="blue")
 abline(h=0,lty=3)
 legend("bottomright",c('Bulk','Cluster'),col=c('black','red'),bg="antiquewhite",lty=c(2,1),cex=1.8,lwd=c(3,3))
@@ -158,7 +157,7 @@ shape::Arrows(x0=x[Min],y0=0,x1=x[Min],y1=Bar,code=2,arr.adj=1,lwd=2)
 text(x[Min],Bar+1,paste0(round(Bar,2)," kT"),pos=3,cex=2,col="green3")
 
 shape::Arrows(x0=x[Min2],y0=0,x1=x[Min2],y1=BE,code=2,arr.adj=1,lwd=2)
-text(x[Min2],BE+1,paste0(round(BE,2)," kT"),pos=3,cex=2,col="green3")
+text(x[Min2],-1,paste0(round(BE,2)," kT"),pos=1,cex=2,col="green3")
 
 write.table(x = Bar,row.names = FALSE,col.names = FALSE,file = 'barrier')
 write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'bindE')
