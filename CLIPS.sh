@@ -28,6 +28,7 @@ Ion1=LI
 Ion2=TF
 Solv=EC
 NTOMP=2
+R_SOL=2
 CA1=LI    #Solute_reference_Atom
 CA2=S1    #Solute_reference_Atom
 SA21=C4   #Solvent_reference_Atom 
@@ -53,6 +54,8 @@ do
 done
 
 # Print Inputs
+
+echo "bash CLIPS.sh -h (Prints help function to set no defaults)";
 echo "Cation: $Ion1";
 echo "Anion: $Ion2";
 echo "Solv: $Solv";
