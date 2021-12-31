@@ -9,34 +9,6 @@ export GMX_MAXBACKUP=-1     # Overwrites
 export PLUMED_MAXBACKUP=-1  # Unlimited backups
 ###############################
 
-# Default Inputs 
-TEMPERATURE=313
-AT=0.65
-KAPPA=1000
-Ion1=LI
-Ion2=TF
-Solv=EC
-NTOMP=2
-Ion_q1=1
-Ion_q2=-1
-Solv_q=0
-CA1=LI   #Solute_central_Atom
-CA2=S1   #Solute_central_Atom
-SA21=C4  #Solvent_binding_Atom 
-NSOLV=30
-Tot_q=$(($Ion_q1+$Ion_q2))
-
-#Inner shell radius (nm)
-R1=0.28
-R2=0.28
-R_SOL=2.0
-
-#Trajectory sampling time (fs) - do not change
-nsteps=50000        # Minimization
-nstepsmd=100000     # Equilibration
-nstepsmtd=5000000   # Enhanced Sampling (5ns)
-
-# Parse non-default inputs if available
 while getopts c:a:f:n:T:P:N:S:R:V: flag
 do
     case "${flag}" in
@@ -52,6 +24,36 @@ do
         V) NSOLV=${OPTARG};;
     esac
 done
+
+# Default Inputs 
+#TEMPERATURE=313
+AT=0.65
+KAPPA=1000
+#Ion1=LI
+#Ion2=TF
+#Solv=EC
+#NTOMP=2
+Ion_q1=1
+Ion_q2=-1
+Solv_q=0
+#CA1=LI   #Solute_central_Atom
+#CA2=S1   #Solute_central_Atom
+#SA21=C4  #Solvent_binding_Atom 
+#NSOLV=30
+Tot_q=$(($Ion_q1+$Ion_q2))
+
+#Inner shell radius (nm)
+R1=0.28
+R2=0.28
+#R_SOL=2.0
+
+#Trajectory sampling time (fs) - do not change
+nsteps=50000        # Minimization
+nstepsmd=100000     # Equilibration
+nstepsmtd=5000000   # Enhanced Sampling (5ns)
+
+# Parse non-default inputs if available
+
 echo "Cation: $Ion1";
 echo "Anion: $Ion2";
 echo "Solv: $Solv";
