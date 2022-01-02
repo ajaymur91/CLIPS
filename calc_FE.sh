@@ -91,7 +91,7 @@ local.min.max <- function(x, dev=mean, plot=TRUE, add.points=FALSE,  ...) {
 }
 ####################
 
-pdf('FE.pdf')
+pdf('FE_Ion1_Ion2_Solv.pdf')
 H <- read.table('histo')
 FE <- -log(H$V2)+2*log(H$V1)
 
