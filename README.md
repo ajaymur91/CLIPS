@@ -42,7 +42,7 @@ bash CLIPS.sh (uses defaults)
   - FE_Ion1_Ion2_Solv.pdf
   - FE_Ion1_Ion2_Solv.gif
   - Ion1_Ion2_Solv_barrier
-  - Ion1_Ion2_Solv_bindE)
+  - Ion1_Ion2_Solv_bindE
 
 # Support 
   - Currently supports LI, TFSI, TF, NA, CL, EC and spce water (SOL) only.
