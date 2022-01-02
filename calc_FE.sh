@@ -32,7 +32,7 @@ cat << EOF > opes.dat
 # Read COLVAR file
 di:         READ FILE=BIAS2 IGNORE_TIME VALUES=di
 opes:      READ FILE=BIAS2 IGNORE_TIME VALUES=opes.bias
-#uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
+uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
 #w1:         READ FILE=BIAS2 IGNORE_TIME VALUES=LW.bias
 
 # Define weights
