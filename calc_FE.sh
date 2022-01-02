@@ -169,8 +169,8 @@ text(x[Min],Bar+1,paste0(round(Bar,2)," kT"),pos=3,cex=2.2,col="green3")
 shape::Arrows(x0=x[Min2],y0=0,x1=x[Min2],y1=BE,code=2,arr.adj=1,lwd=2)
 text(x[Min2],-1,paste0(round(BE,2)," kT"),pos=1,cex=2.2,col="green3")
 
-write.table(x = Bar,row.names = FALSE,col.names = FALSE,file = 'barrier')
-write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'bindE')
+write.table(x = Bar,row.names = FALSE,col.names = FALSE,file = 'Ion1_Ion2_Solv_barrier')
+write.table(x = BE,row.names = FALSE,col.names = FALSE,file = 'Ion1_Ion2_Solv_bindE')
 dev.off()
 EOF
 sed -i.bak "s|HISTO|$HISTO|g" plot.R
