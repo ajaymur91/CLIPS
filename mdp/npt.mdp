@@ -7,9 +7,9 @@ dt                      = 0.002     ; 2 fs
 ; Output control
 ;nstxout                 = 500       ; save coordinates every 1.0 ps
 ;nstvout                 = 500       ; save velocities every 1.0 ps
-nstxtcout               = 5000
-nstenergy               = 5000       ; save energies every 1.0 ps
-nstlog                  = 5000       ; update log file every 1.0 ps
+nstxtcout                = 500
+nstenergy                = 500       ; save energies every 1.0 ps
+nstlog                   = 5000       ; update log file every 1.0 ps
 ; Bond parameters
 continuation            = yes       ; Restarting after NVT 
 constraint_algorithm    = lincs     ; holonomic constraints 
@@ -33,7 +33,7 @@ tc-grps                 = System                ; two coupling groups - more acc
 tau_t                   = 1                     ; time constant, in ps
 ref_t                   = 313                   ; reference temperature, one for each group, in K
 ; Pressure coupling is on
-pcoupl                  = Parrinello-Rahman     ; Pressure coupling on in NPT
+pcoupl                  = Berendsen     ; Pressure coupling on in NPT
 pcoupltype              = isotropic             ; uniform scaling of box vectors
 tau_p                   = 2.0                   ; time constant, in ps
 ref_p                   = 1.0                   ; reference pressure, in bar

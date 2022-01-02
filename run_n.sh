@@ -28,7 +28,7 @@ done
 # Default Inputs 
 #TEMPERATURE=313
 AT=0.65
-KAPPA=1000
+KAPPA=20000
 #Ion1=LI
 #Ion2=TF
 #Solv=EC
@@ -138,7 +138,7 @@ EOF
 cp ion.top system.top
 gmx insert-molecules -f struct/"$Ion1".gro -ci struct/$Ion2.gro -o Ions.gro -box 1.5 1.5 1.5 -nmol 1 -try 1000 -scale 3 
 
-NSOLV=$(gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.5 1.5 1.5 -nmol $NSOLV -try 1000 -scale 0.5 2> /dev/stdout  | grep "Output configuration contains" | awk '{ print $(NF-1)-2 }')
+NSOLV=$(gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.3 1.3 1.3 -nmol $NSOLV -try 1000 -scale 0.57 2> /dev/stdout  | grep "Output configuration contains" | awk '{ print $(NF-1)-2 }')
 cat << EOF >> system.top
 $Solv   $NSOLV
 EOF
