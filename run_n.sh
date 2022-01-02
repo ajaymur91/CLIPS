@@ -239,5 +239,5 @@ gmx mdrun -deffnm mtd -nsteps $nstepsmtd -plumed plumed_MTD.dat -ntomp $NTOMP
 
 ###############################
 rm -rf barrier \#*
-bash calc_all.sh $Ion1 $Ion2 $Solv
+bash calc_all.sh -c $Ion1 -a $Ion2 -f $Solv -T $TEMPERATURE -v $NSOLV
 
