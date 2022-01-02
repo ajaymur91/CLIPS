@@ -23,7 +23,7 @@ bash CLIPS.sh (uses defaults, results stored in FE.pdf, FE.gif, barrier, bindE)
   - Select some input parameters in CLIPS.sh
   - or use optional command line args:
 ```
-	Syntax: bash CLIPS.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 2 -V 30			
+	Syntax: bash CLIPS.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 2 (results stored in FE.pdf, FE.gif, barrier, bindE)
 	Options:												
      c) cation (LI or NA) (default = LI)									
      a) anion (TF or TFSI or BLB) (default = TF)								
@@ -34,7 +34,6 @@ bash CLIPS.sh (uses defaults, results stored in FE.pdf, FE.gif, barrier, bindE)
      N) anion reference atom (S1 for TF/TFSI, CL for Chloride) (default = S1)					
      S) solvent reference atom (O2 for EC, OW for water) (default = O2)					
      R) R_SOL (Confines solvent within sphere around center of ions (default = 2 nm)				
-     V) N_SOLV (currently empirical: 30 for EC and 80 for water. (greater than 20% of bulk density works.)	
      h) print this help	
 
 ```
