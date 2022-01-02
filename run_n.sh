@@ -208,7 +208,7 @@ opes: OPES_METAD ...
   ARG=di
   FILE=Kernels.data
   TEMP=${TEMPERATURE}
-  PACE=10
+  PACE=25
   BARRIER=100
   #SIGMA=0.05
   #SIGMA_MIN=0.0005
