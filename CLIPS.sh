@@ -29,8 +29,9 @@ R_SOL=2   #Solvent barrier
 CA1=LI    #Solute_reference_Atom
 CA2=S1    #Solute_reference_Atom
 SA21=C4   #Solvent_reference_Atom 
+time=10   #ns
 
-while getopts c:a:f:n:T:P:N:S:R:h flag
+while getopts c:a:f:n:T:t:P:N:S:R:h flag
 do
     case "${flag}" in
         c) Ion1=${OPTARG};;
@@ -38,6 +39,7 @@ do
         f) Solv=${OPTARG};;
         n) NTOMP=${OPTARG};;
         T) TEMPERATURE=${OPTARG};;
+        t) time=${OPTARG};;
         P) CA1=${OPTARG};;
         N) CA2=${OPTARG};;
         S) SA21=${OPTARG};;

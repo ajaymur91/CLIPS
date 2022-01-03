@@ -9,7 +9,7 @@ export GMX_MAXBACKUP=-1     # Overwrites
 export PLUMED_MAXBACKUP=-1  # Unlimited backups
 ###############################
 
-while getopts c:a:f:n:T:P:N:S:R:V: flag
+while getopts c:a:f:n:T:t:P:N:S:R:V: flag
 do
     case "${flag}" in
         c) Ion1=${OPTARG};;
@@ -17,6 +17,7 @@ do
         f) Solv=${OPTARG};;
         n) NTOMP=${OPTARG};;
         T) TEMPERATURE=${OPTARG};;
+        t) time=${OPTARG};;
         P) CA1=${OPTARG};;
         N) CA2=${OPTARG};;
         S) SA21=${OPTARG};;
@@ -50,7 +51,7 @@ R2=0.28
 #Trajectory sampling time (fs) - do not change
 nsteps=50000        # Minimization
 nstepsmd=100000     # Equilibration
-nstepsmtd=5000000   # Enhanced Sampling (5ns)
+nstepsmtd=$(echo "$time*10000000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
 
 # Parse non-default inputs if available
 
@@ -59,6 +60,7 @@ echo "Anion: $Ion2";
 echo "Solv: $Solv";
 echo "NTOMP: $NTOMP";
 echo "TEMPERATURE: $TEMPERATURE";
+echo "sampling time: $time (ns)";
 echo "R_SOL: $R_SOL";
 echo "NSOLV: $NSOLV";
 ###############################
