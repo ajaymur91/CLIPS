@@ -11,6 +11,7 @@ Help()
    echo "     f) solvent (EC or SOL) (default is EC = Ethylene carbonate, SOL = water)					"
    echo "     n) OpenMP processes (1 or 2 or 3 ...)									"
    echo "     T) TEMPERATURE (default = 313)										"
+   echo "     t) sampling time (default = 10 ns)										"
    echo "     P) cation reference atom for distance measurement (LI or NA) (default = LI)				"
    echo "     N) anion reference atom (S1 for TF/TFSI, CL for Chloride) (default = S1)					"
    echo "     S) solvent reference atom (O2 for EC, OW for water) (default = O2)					"
