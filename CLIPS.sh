@@ -91,4 +91,4 @@ function retry {
 }
 
 # Run CLIPS
-time retry bash run_n.sh -c $Ion1 -a $Ion2 -f $Solv -n $NTOMP -T $TEMPERATURE -P $CA1 -N $CA2 -S $SA21 -R $R_SOL -V $NSOLV
+time retry bash run_n.sh -c $Ion1 -a $Ion2 -f $Solv -n $NTOMP -T $TEMPERATURE -t $time -P $CA1 -N $CA2 -S $SA21 -R $R_SOL -V $NSOLV

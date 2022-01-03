@@ -91,7 +91,7 @@ cat << EOF > verlet.mdp
 define                  = -DFLEXIBLE
 integrator              = sd        
 nsteps                  = 1000000   
-dt                      = 0.001     
+dt                      = 0.002     
 
 nstxout                 = 2000     
 nstvout                 = 2000     
@@ -201,7 +201,7 @@ SA: GROUP NDX_FILE=mtd.ndx # NDX_GROUP=atomname__and_resnr_<_6
 cn: COORDINATION GROUPA=com GROUPB=SA R_0=$R_SOL NN=12
 EOF
 
-echo "LOWER_WALLS ARG=cn AT=${Nt} KAPPA=100 LABEL=LW" >> plumed_MTD.dat
+echo "LOWER_WALLS ARG=cn AT=${Nt} KAPPA=10 LABEL=LW" >> plumed_MTD.dat
 
 cat << EOF >> plumed_MTD.dat
 di: DISTANCE ATOMS=CA1,CA2
@@ -210,7 +210,7 @@ opes: OPES_METAD ...
   ARG=di
   FILE=Kernels.data
   TEMP=${TEMPERATURE}
-  PACE=25
+  PACE=200
   BARRIER=100
   #SIGMA=0.05
   #SIGMA_MIN=0.0005
