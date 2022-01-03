@@ -43,7 +43,7 @@ uwall:      READ FILE=BIAS2 IGNORE_TIME VALUES=uwall.bias
 #w1:         READ FILE=BIAS2 IGNORE_TIME VALUES=LW.bias
 
 # Define weights
-weights: REWEIGHT_BIAS TEMP=313 ARG=*.bias
+weights: REWEIGHT_BIAS TEMP=$TEMPERATURE ARG=*.bias
 
 HISTOGRAM ...
   ARG=di
@@ -61,10 +61,11 @@ EOF
 
 L=$(sed "2,500d" Colvar.data | wc -l)
 NL=$(echo "$i*$L/10" | bc)
+kT=$(echo "$TEMPERATURE*2.479/298.15" | bc -l)
 sed "2,5000d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
 Time=$(printf %.1f $(tail -n 1 BIAS2 | awk '{print $1/1000}'))
 echo $(wc -l BIAS2)
-cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt 2.603
+cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt $kT
 
 cat << 'EOF' > plot.R
 #!/bin/Rscript
