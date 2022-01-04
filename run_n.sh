@@ -51,7 +51,7 @@ R2=0.28
 #Trajectory sampling time (fs) - do not change
 nsteps=50000        # Minimization
 nstepsmd=100000     # Equilibration
-nstepsmtd=$(echo "$time*10000000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
+nstepsmtd=$(echo "$time*500000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
 
 # Parse non-default inputs if available
 
@@ -140,7 +140,7 @@ EOF
 cp ion.top system.top
 gmx insert-molecules -f struct/"$Ion1".gro -ci struct/$Ion2.gro -o Ions.gro -box 1.5 1.5 1.5 -nmol 1 -try 1000 -scale 3 
 
-NSOLV=$(gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.3 1.3 1.3 -nmol $NSOLV -try 1000 -scale 0.57 2> /dev/stdout  | grep "Output configuration contains" | awk '{ print $(NF-1)-2 }')
+NSOLV=$(gmx insert-molecules -f Ions.gro -ci struct/$Solv.gro -o IonW.gro -box 1.8 1.8 1.8 -nmol $NSOLV -try 1000 -scale 0.57 2> /dev/stdout  | grep "Output configuration contains" | awk '{ print $(NF-1)-2 }')
 cat << EOF >> system.top
 $Solv   $NSOLV
 EOF
@@ -210,7 +210,7 @@ opes: OPES_METAD ...
   ARG=di
   FILE=Kernels.data
   TEMP=${TEMPERATURE}
-  PACE=200
+  PACE=50
   BARRIER=100
   #SIGMA=0.05
   #SIGMA_MIN=0.0005

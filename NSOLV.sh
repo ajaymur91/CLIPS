@@ -26,7 +26,7 @@ NTOMP=1
 Ns=1000       # Attempt to insert Ns solvents (for solvent density calculation) 
 Time=0.05      # Equil. time in ns
 NSTEPS=$(echo "$Time" | awk '{ printf("%.0f", $1*500000) }')
-Rfill=0.90
+Rfill=0.95
 
 # Inputs
 while getopts f:n:h flag
