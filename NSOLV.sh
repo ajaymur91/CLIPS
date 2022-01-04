@@ -26,6 +26,7 @@ NTOMP=1
 Ns=1000       # Attempt to insert Ns solvents (for solvent density calculation) 
 Time=0.05      # Equil. time in ns
 NSTEPS=$(echo "$Time" | awk '{ printf("%.0f", $1*500000) }')
+Rfill=0.90
 
 # Inputs
 while getopts f:n:h flag
@@ -97,5 +98,5 @@ retry gmx mdrun -deffnm density_eq -ntomp $NTOMP -nsteps $NSTEPS &> /dev/null
 
 # Identify number of solvents required for CLIPS program ()
 V=$(tail -n 1 density_eq.gro | awk '{print $1^3}')
-NSOLV=$(echo $Ns*4*3.1416*0.3333*0.85^3/$V | bc)
+NSOLV=$(echo $Ns*4*3.1416*0.3333*$Rfill^3/$V | bc)
 echo $NSOLV | awk '{ printf("%.0f", $1) }'
