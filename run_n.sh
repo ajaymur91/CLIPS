@@ -51,7 +51,7 @@ R2=0.28
 #Trajectory sampling time (fs) - do not change
 nsteps=50000        # Minimization
 nstepsmd=100000     # Equilibration
-nstepsmtd=$(echo "$time*500000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
+nstepsmtd=$(echo "$time*1000000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
 
 # Parse non-default inputs if available
 
@@ -91,7 +91,7 @@ cat << EOF > verlet.mdp
 define                  = -DFLEXIBLE
 integrator              = sd        
 nsteps                  = 1000000   
-dt                      = 0.002     
+dt                      = 0.001
 
 nstxout                 = 2000     
 nstvout                 = 2000     
