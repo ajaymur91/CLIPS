@@ -62,7 +62,7 @@ EOF
 L=$(sed "2,500d" Colvar.data | wc -l)
 NL=$(echo "$i*$L/10" | bc)
 kT=$(echo "$TEMPERATURE*2.479/298.15" | bc -l)
-sed "2,5000d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
+sed "2,50000d" Colvar.data | head -n $NL | awk 'NR%10==1' > BIAS2
 Time=$(printf %.1f $(tail -n 1 BIAS2 | awk '{print $1/1000}'))
 echo $(wc -l BIAS2)
 cat opes.dat | plumed driver --noatoms --plumed /dev/stdin --kt $kT
@@ -156,6 +156,7 @@ lines(x2,F2 - LMM2$minima[1],lty=2,lwd=3)
 }
 
 #text(0.77,18,"Upper\nWall",pos=2,cex=2,col="blue")
+polygon(c(0.655,0.77,0.77,0.655),c(22,22,16,16),border=FALSE,col="white")
 text(0.71,20,"Upper\nWall",pos=1,cex=2,col="blue")
 text(0.42,21,"Time (ns)",pos=1,cex=2,col="red")
 #text(0.14,-7,"TEMP K",pos=4,cex=2,col="red")
