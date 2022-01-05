@@ -51,7 +51,7 @@ R2=0.28
 #Trajectory sampling time (fs) - do not change
 nsteps=50000        # Minimization
 nstepsmd=100000     # Equilibration
-nstepsmtd=$(echo "$time*1000000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
+nstepsmtd=$(echo "$time*500000" | bc | awk '{printf "%.0f", $1}')   # Enhanced Sampling steps
 
 # Parse non-default inputs if available
 
@@ -91,7 +91,7 @@ cat << EOF > verlet.mdp
 define                  = -DFLEXIBLE
 integrator              = sd        
 nsteps                  = 1000000   
-dt                      = 0.001
+dt                      = 0.002
 
 nstxout                 = 2000     
 nstvout                 = 2000     
@@ -100,9 +100,9 @@ nstcalcenergy           = 1
 nstlog                  = 2000     
 
 cutoff-scheme            = verlet
-rlist                    = 1.5   
-rcoulomb                 = 1.5   
-rvdw                     = 1.5   
+rlist                    = 1.2
+rcoulomb                 = 1.2   
+rvdw                     = 1.2   
 pbc                      = xyz
 ns-type                  = simple
 constraint_algorithm    = lincs     ; holonomic constraints
@@ -210,7 +210,7 @@ opes: OPES_METAD ...
   ARG=di
   FILE=Kernels.data
   TEMP=${TEMPERATURE}
-  PACE=50
+  PACE=500
   BARRIER=100
   #SIGMA=0.05
   #SIGMA_MIN=0.0005
