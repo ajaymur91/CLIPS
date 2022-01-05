@@ -29,7 +29,9 @@ done
 # Default Inputs 
 #TEMPERATURE=313
 AT=0.65
-KAPPA=200000
+KAPPA=400000
+kT=$(echo "$TEMPERATURE*2.479/298.15" | bc -l)
+BARRIER=$(echo $kT | awk '{print $1*100}')
 #Ion1=LI
 #Ion2=TF
 #Solv=EC
@@ -211,7 +213,7 @@ opes: OPES_METAD ...
   FILE=Kernels.data
   TEMP=${TEMPERATURE}
   PACE=500
-  BARRIER=100
+  BARRIER=${BARRIER}
   #SIGMA=0.05
   #SIGMA_MIN=0.0005
   STATE_WFILE=State.data
