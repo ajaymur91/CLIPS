@@ -11,12 +11,12 @@
 - tested on linux-64 (Ubuntu 20.04.3, CentOS-7) and osx-64 (tested on macOS Catalina)
 ```
 git clone ssh://git@github.com/ajaymur91/CLIPS.git
+cd CLIPS 
 conda env create -f env.yaml # For linux-64
 conda env create -f mac-env.yaml # For osx-64
 ```
 # Usage (defaults)
 ```
-cd CLIPS 
 bash CLIPS.sh (uses defaults)
 ```
 # Usage (non-defaults)
