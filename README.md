@@ -51,6 +51,6 @@ bash CLIPS.sh (uses defaults)
   - Users can add additional species into itp and struct folders.
 
 # Citation
-  - (Figshare animation) [https://doi.org/10.6084/m9.figshare.16755277.v3](https://doi.org/10.6084/m9.figshare.16755277.v3) (CLIPS.gif)
+  - (Figshare animation) [https://doi.org/10.6084/m9.figshare.16755277](https://doi.org/10.6084/m9.figshare.16755277) (CLIPS.gif)
   - (Preprint) https://arxiv.org/abs/2110.14036 
   - Muralidharan, Ajay, and Arun Yethiraj. "Fast estimation of ion-pairing for screening electrolytes: A cluster can approximate a bulk liquid." arXiv preprint arXiv:2110.14036 (2021).
