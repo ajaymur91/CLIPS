@@ -1,4 +1,3 @@
-;define                  = -DPOSRES  
 ; Run parameters
 integrator              = md       
 nsteps                  = 100000    
