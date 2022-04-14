@@ -6,17 +6,17 @@ Help()
    echo "														"
    echo "	Syntax: bash CLIPS.sh -c LI -a TF -f EC -n 1 -T 313 -P LI -N S1 -S O2 -R 2 				"
    echo "	Options:												"
-   echo "     c) cation (LI or NA) (default = LI)									"		
+   echo "     c) cation (LI or NA) (default = LI)									"
    echo "     a) anion (TF or TFSI or BLB) (default = TF)								"
-   echo "     f) solvent (EC or SOL) (default is EC = Ethylene carbonate, SOL = water)					"
+   echo "     f) solvent (EC or SOL or PC or ACN) (default is EC = Ethylene carbonate) (SOL = water, PC = Propylene carbonate, ACN = Acetonitrile)					"
    echo "     n) OpenMP processes (1 or 2 or 3 ...)									"
    echo "     T) TEMPERATURE (default = 313)										"
    echo "     t) sampling time (default = 10 ns)										"
    echo "     P) cation reference atom for distance measurement (LI or NA) (default = LI)				"
    echo "     N) anion reference atom (S1 for TF/TFSI, CL for Chloride) (default = S1)					"
-   echo "     S) solvent reference atom (O2 for EC, OW for water) (default = O2)					"
+   echo "     S) solvent reference atom (O2 for EC/PC, OW for water, NZ for ACN) (default = O2)					"
    echo "     R) R_SOL (Confines solvent within sphere around center of ions (default = 2 nm)				"
-   echo "     h) print this help											"		
+   echo "     h) print this help											"
    echo "														"
 }
 
@@ -24,12 +24,12 @@ Help()
 TEMPERATURE=313
 Ion1=LI
 Ion2=TF
-Solv=EC  
+Solv=EC
 NTOMP=1   #OMP THREADS
 R_SOL=2   #Solvent barrier
 CA1=LI    #Solute_reference_Atom
 CA2=S1    #Solute_reference_Atom
-SA21=C4   #Solvent_reference_Atom 
+SA21=C4   #Solvent_reference_Atom
 time=10   #ns
 
 while getopts c:a:f:n:T:t:P:N:S:R:h flag
@@ -67,7 +67,7 @@ NSOLV=$(bash NSOLV.sh -f $Solv -n $NTOMP)
 echo "NSOLV: $NSOLV";
 sleep 1
 
-# Retry function  
+# Retry function
 function fail {
   echo $1 >&2
   exit 1
