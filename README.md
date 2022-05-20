@@ -53,4 +53,4 @@ bash CLIPS.sh (uses defaults)
 # Citation
   - (Figshare animation) [https://doi.org/10.6084/m9.figshare.16755277](https://doi.org/10.6084/m9.figshare.16755277) (CLIPS.gif)
   - (Preprint) https://arxiv.org/abs/2110.14036 
-  - Muralidharan, Ajay, and Arun Yethiraj. "Fast estimation of ion-pairing for screening electrolytes: A cluster can approximate a bulk liquid." The Journal of Chemical Physics 156.5 (2022): 054801. [https://doi.org/10.1063/5.0077013](https://doi.org/10.1063/5.0077013)
+  - (Published version) Muralidharan, Ajay, and Arun Yethiraj. "Fast estimation of ion-pairing for screening electrolytes: A cluster can approximate a bulk liquid." The Journal of Chemical Physics 156.5 (2022): 054801. [https://doi.org/10.1063/5.0077013](https://doi.org/10.1063/5.0077013)
