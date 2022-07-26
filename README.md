@@ -1,4 +1,4 @@
-![](CLIPS.gif)
+![Folding Movie](CLIPS.gif)
 
 # External Requirements:
 - git 
