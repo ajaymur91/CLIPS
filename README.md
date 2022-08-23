@@ -14,6 +14,7 @@ git clone ssh://git@github.com/ajaymur91/CLIPS.git
 cd CLIPS 
 conda env create -f env.yaml # For linux-64
 conda env create -f mac-env.yaml # For osx-64
+conda activate CLIPS
 ```
 # Usage (defaults)
 ```
